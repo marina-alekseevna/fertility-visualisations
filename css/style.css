@@ -1,0 +1,65 @@
+/* * {
+  box-sizing: border-box;
+} */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+body {
+  font-family: 'Raleway', sans-serif;
+}
+
+/* Style the header */
+.header {
+  background-color: #ffffff;
+  padding: 3px;
+  text-align: center;
+  font-size: 15px;
+}
+
+#instruction{
+  font-size: 10px;
+  color: rgb(65, 65, 65);
+}
+
+.middle{
+  float: left;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+  width:48%;
+  padding: 10px;
+  float:left;
+}
+
+/* Style the footer */
+.footer {
+
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: center;
+}
+
+.tooltip{
+      position      : absolute;
+      text-align    : left;
+      width         : 88px;
+      height        : 50px;
+      padding       : 8px;
+      border-radius : 8px;
+      margin-top    : 20px;
+      margin-left   : 20px;
+      font-size     : 12px;
+      background    : rgb(255, 255, 255, 0.75);
+      color         : black;
+      pointer-events: none;
+      border-color: rgb(65, 65, 65);
+      border-width: 5px;
+  }
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+
