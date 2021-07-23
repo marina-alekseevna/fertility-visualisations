@@ -10,6 +10,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"
         integrity="sha512-wNH6xsp2n8CfB91nrBtfc4sfLwYPBMjSWVUwQOp60AYYXH6i8yCwuKFZ4rgK2i6pQek/b+bSyR7b01/922IBzQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/d3-simple-slider"></script>
+    <!-- <script type="module" src="./js/utils.js"></script> -->
     <!-- <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script> -->
 </head>
 
@@ -17,7 +19,7 @@
     <div class="header">
         <h1>Cohort Fertility and Siblings</h1>
     </div>
-
+    <div id="horizontal-separator"></div>
     <div class="middle" id="middle">
         <h2>Fertility Patterns in the UK Over Time</h2>
         <p>Starting a family is a major decision in life, and when people choose to start a family, as well as how
@@ -26,23 +28,22 @@
             superficial study of fertility patterns over the last century, and maybe speculate a little regarding
             possible
             factors that affected it <br> </p>
-        <br>
 
     </div>
+    <div id="horizontal-separator">рр</div>
     <div class="row">
-        <div class="column">
+
+        <div class="column-left">
+            <h2>Fertility over Time</h2>
             <div class="service" id="fertility-service">
 
-                From <input type="number" id="from-fertility" name="from-fertility" value=1965 min=1920 max=2003>
-                To <input type="number" id="to-fertility" name="to-fertility" value=2004 min=1921 max=2004>
-
+                <p id="fertility-value-range"></p>
+                <div id="fertility-slider-range"></div>
                 <select id="select-fertility-data">
                     <option value="Cumulative Fertility" selected>Cumulative Fertility</option>
                     <option value="Total Fertility Rate">Total Fertility Rate</option>
                 </select> <input type="submit" value="Submit" id="submit">
-                <p id="instruction">beware that "from" must be less than "to", and values must be between 1920 and
-                    2004
-                </p>
+
 
                 <div id="legend1"></div>
             </div>
@@ -52,14 +53,31 @@
             <div id="trf-chart"></div>
             <br>
         </div>
-        <div class="column">
+        <div class="vertical-separator"></div>
+        <div class="column-right">
+            <h2>Range</h2>
+            hello my darling
+            <input type="checkbox" value="with-childless">
+            <label>With Childless</label>
+            <input type="checkbox" value="graph-childless">
+            <label>Graph Childless</label>
+            <!-- <div class="numchildren-value-range"> -->
+
+        </div>
+        <div id="numchildren-service">
+            <p id="numchildren-value-range"></p>
+            <div id="numchildren-slider-range"></div>
+
             <div id="numchildren">Hi</div>
         </div>
     </div>
+    </div>
 
-    <div class="footer"> </div>
-    <script type="text/javascript" src="./js/fertility_cohort.js"></script>
-    <script type="text/javascript" src="./js/numchildren.js"></script>
+    <div class="footer">many thanks for your attention</div>
+
+    <script type="module" src="./js/fertility_cohort.js"></script>
+    <!-- <script type="text/javascript" src="./js/numchildren.js"></script> -->
+
 
 </body>
 

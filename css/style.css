@@ -8,7 +8,7 @@ body {
 
 /* Style the header */
 .header {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   padding: 3px;
   text-align: center;
   font-size: 15px;
@@ -29,18 +29,58 @@ body {
   display: table;
   clear: both;
 }
-
-.column {
-  width:48%;
-  padding: 10px;
+#horizontal-separator{
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height:10px;  
+  background-color: rgb(231, 231, 231);
+  color: white;
+  text-align: center;
+}
+.vertical-separator{
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  background-color: rgb(231, 231, 231);
+  color: white;
+  text-align: center;
+}
+.column-left {
+  width:43%;
+  padding-left: 7%;
   float:left;
+}
+.column-right {
+  width:43%;
+  padding-right: 7%;
+  float:right;
+}
+
+/* h2{
+  float: left;
+  width: 50px !important;
+  height:20px !important;
+} */
+
+.checkbox{
+  float:left;
+}
+
+.value-range{
+  width:700px;
+  height:20px;
+  padding-left: 20px;
+  float: left;
 }
 
 /* Style the footer */
 .footer {
-
-  background-color: #f1f1f1;
-  padding: 10px;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(231, 231, 231);
+  color: white;
   text-align: center;
 }
 
