@@ -1,7 +1,7 @@
-export let starting_range = [1950, 2000];
+let starting_range = [1950, 2000];
 
 
-export function add_slider(range_p, slider_div, starting_range = starting_range, width = 400, displayed_range = range, colour = '#51527D') {
+function add_slider(range_p, slider_div, starting_range = [1950, 2000], width = 400, displayed_range = range, colour = '#51527D') {
 
     var sliderRange = d3
         .sliderBottom()
@@ -44,3 +44,5 @@ export var colour_scheme = {
 }
 
 export var range = [1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2004];
+
+export { starting_range, add_slider };
