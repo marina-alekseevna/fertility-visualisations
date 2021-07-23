@@ -1,4 +1,7 @@
-export function add_slider(range_p, slider_div, width = 400, displayed_range = range, colour = '#51527D') {
+export let starting_range = [1950, 2000];
+
+
+export function add_slider(range_p, slider_div, starting_range = starting_range, width = 400, displayed_range = range, colour = '#51527D') {
 
     var sliderRange = d3
         .sliderBottom()
@@ -7,7 +10,7 @@ export function add_slider(range_p, slider_div, width = 400, displayed_range = r
         .width(width - 50)
         .tickFormat(d3.format(".4"))
         .ticks(11)
-        .default([1950, 2000])
+        .default(starting_range)
         .fill(colour)
         .on('onchange', val => {
             d3.select(range_p).text(val.map(d3.format('.4')).join('-'));
