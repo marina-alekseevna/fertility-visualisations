@@ -1,7 +1,7 @@
 export let starting_range = [1950, 2000];
 
 
-export function add_slider(range_p, slider_div, starting_range = starting_range, width = 400, displayed_range = range, colour = '#51527D') {
+export function add_slider(range_p, slider_div, starting_range = [1950, 2000], width = 400, displayed_range = range, colour = '#51527D') {
 
     var sliderRange = d3
         .sliderBottom()
