@@ -42,9 +42,7 @@
                 <select id="select-fertility-data">
                     <option value="Cumulative Fertility" selected>Cumulative Fertility</option>
                     <option value="Total Fertility Rate">Total Fertility Rate</option>
-                </select> <input type="submit" value="Submit" id="submit">
-
-
+                </select>
                 <div id="legend1"></div>
             </div>
             <br>
@@ -56,19 +54,50 @@
         <div class="vertical-separator"></div>
         <div class="column-right">
             <h2>Range</h2>
-            hello my darling
-            <input type="checkbox" value="with-childless">
-            <label>With Childless</label>
-            <input type="checkbox" value="graph-childless">
-            <label>Graph Childless</label>
+
             <!-- <div class="numchildren-value-range"> -->
 
         </div>
-        <div id="numchildren-service">
+        <div class="service" id="numchildren-service">
             <p id="numchildren-value-range"></p>
             <div id="numchildren-slider-range"></div>
-
-            <div id="numchildren">Hi</div>
+            <div id="selectors">
+                <select id="select-age">
+                    <option value=16>16</option>
+                    <option value=17>17</option>
+                    <option value=18>18</option>
+                    <option value=19>19</option>
+                    <option value=20>20</option>
+                    <option value=21>21</option>
+                    <option value=22>22</option>
+                    <option value=23>23</option>
+                    <option value=24>24</option>
+                    <option value=25>25</option>
+                    <option value=26>26</option>
+                    <option value=27>27</option>
+                    <option value=28>28</option>
+                    <option value=29>29</option>
+                    <option value=30>30</option>
+                    <option value=31>31</option>
+                    <option value=32>32</option>
+                    <option value=33>33</option>
+                    <option value=34>34</option>
+                    <option value=35 selected>35</option>
+                    <option value=36>36</option>
+                    <option value=37>37</option>
+                    <option value=38>38</option>
+                    <option value=39>39</option>
+                    <option value=40>40</option>
+                    <option value=41>41</option>
+                    <option value=42>42</option>
+                    <option value=43>43</option>
+                    <option value=44>44</option>
+                    <option value=45>45</option>
+                </select>
+                <input type="button" id="unmerge" value="only 1+">
+                <input type="button" id="graph" value="graph 0">
+            </div>
+            <div id="numchildren-chart">Hi</div>
         </div>
     </div>
     </div>
@@ -76,7 +105,7 @@
     <div class="footer">many thanks for your attention</div>
 
     <script type="module" src="./js/fertility_cohort.js"></script>
-    <!-- <script type="text/javascript" src="./js/numchildren.js"></script> -->
+    <script type="module" src="./js/numchildren.js"></script>
 
 
 </body>
