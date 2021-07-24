@@ -1,119 +1,66 @@
+import * as utils from "./utils.js";
 
-// set the dimensions and margins of the graph
+let colour_scheme = {
+    "zero": "#7077FF", "one": "#B4CA95",
+    "two": "#FFFA5C", "three": "#E38339",
+    "four+": "#D95356"
+};
 
-// append the svg object to the body of the page
-// var margin = { top: 80, right: 40, bottom: 30, left: 40 };
-// var height = 300;
-// var width = document.getElementById("numchildren").offsetWidth - 80;
-var range = [1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2004];
-function add_slider(width, range) {
 
-    var sliderRange = d3
-        .sliderBottom()
-        .min(d3.min(range))
-        .max(d3.max(range))
-        .width(350)
-        .tickFormat(d3.format(".4"))
-        .ticks(10)
-        .default([1950, 2000])
-        .fill('#51527D')
-        .on('onchange', val => {
-            d3.select('p#numchildren-value-range').text(val.map(d3.format('.4')).join('-'));
+function draw_barchart(years_slider, width, height, unmerge, graph) {
+
+    let svg = d3.select("#numchildren-chart")
+        .append("svg")
+        .attr("width", width + utils.margin.left + utils.margin.right)
+        .attr("height", height + utils.margin.top + utils.margin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(" + utils.margin.left + "," + utils.margin.top + ")");
+
+    let age = document.getElementById('select-age').value;
+
+
+
+    console.log("Year: " + years_slider.value() + ", age: " + age);
+
+
+
+}
+function children_barchart() {
+    let years_slider = utils.add_range_slider('p#numchildren-value-range', 'div#numchildren-slider-range');
+    years_slider;
+
+    let width = document.getElementById("numchildren-chart").offsetWidth - utils.margin.left - utils.margin.right;
+    let height = 200;
+
+    let unmerge = 1;
+    let graph = 1;
+    draw_barchart(years_slider, width, height);
+
+    d3.select("#unmerge").
+        on("click", function () {
+            unmerge = unmerge * (-1);
+            d3.selectAll("#numchildren-chart > *").transition().duration(200).remove();
+            draw_barchart(years_slider, width, height, unmerge, graph);
+        });
+    d3.select("#graph").
+        on("click", function () {
+            graph = graph * (-1);
+            d3.selectAll("#numchildren-chart > *").transition().duration(200).remove();
+            draw_barchart(years_slider, width, height, unmerge, graph);
+        });
+    d3.select("#graph_childless,#show_childless,#select-age")
+        .on("change", function () {
+            d3.selectAll("#numchildren-chart > *").transition().duration(200).remove();
+            draw_barchart(years_slider, width, height, unmerge, graph);
         });
 
-    var gRange = d3
-        .select('div#numchildren-slider-range')
-        .append('svg')
-        .attr('width', 400)
-        .attr('height', 68)
-        .append('g')
-        .attr('transform', 'translate(30,30)');
+    years_slider
+        .on("end", function () {
+            d3.selectAll("#numchildren-chart > *").transition().duration(200).remove();
+            draw_barchart(years_slider, width, height, unmerge, graph);
+        });
 
-    gRange.call(sliderRange);
+};
 
-    d3.select('p#numchildren-value-range').text(
-        sliderRange
-            .value()
-            .map(d3.format('.4'))
-            .join('-')
-    );
-    console.log("hello " + sliderRange.value());
-}
-
-add_slider(300, range);
-
-
-// var svg = d3.select("#numchildren")
-//     .append("svg")
-//     .attr("width", 2 * width + margin.left + margin.right)
-//     .attr("height", height + margin.top + margin.bottom)
-//     .append("g")
-//     .attr("transform",
-//         "translate(" + margin.left + "," + margin.top + ")");
-
-// // Parse the Data
-// d3.csv("./data/numchildren.csv", function (data) {
-
-//     // List of subgroups = header of the csv files = soil condition here
-//     console.log(data);
-//     var subgroups = data.columns.slice(1)
-//     console.log(subgroups);
-//     // List of groups = species here = value of the first column called group -> I show them on the X axis
-//     var groups = d3.map(data, function (d) { return (d.group) }).keys()
-
-//     console.log(groups);
-//     // Add X axis
-//     var x = d3.scaleBand()
-//         .domain(groups)
-//         .range([0, width])
-//         .padding([0.2])
-//     svg.append("g")
-//         .attr("transform", "translate(0," + height + ")")
-//         .call(d3.axisBottom(x).tickSizeOuter(0));
-
-//     // Add Y axis
-//     var y = d3.scaleLinear()
-//         .domain([0, 100])
-//         .range([height, 0]);
-//     svg.append("g")
-//         .call(d3.axisLeft(y));
-
-//     // color palette = one color per subgroup
-//     var color = d3.scaleOrdinal()
-//         .domain(subgroups)
-//         .range(['#e41a1c', '#377eb8', '#4daf4a'])
-
-//     // Normalize the data -> sum of each group must be 100!
-//     console.log(data)
-//     dataNormalized = []
-//     data.forEach(function (d) {
-//         // Compute the total
-//         tot = 0
-//         for (i in subgroups) { name = subgroups[i]; tot += +d[name] }
-//         // Now normalize
-//         for (i in subgroups) { name = subgroups[i]; d[name] = d[name] / tot * 100 }
-//     })
-
-//     //stack the data? --> stack per subgroup
-//     var stackedData = d3.stack()
-//         .keys(subgroups)
-//         (data)
-
-//     // Show the bars
-//     svg.append("g")
-//         .selectAll("g")
-//         // Enter in the stack data = loop key per key = group per group
-//         .data(stackedData)
-//         .enter().append("g")
-//         .attr("fill", function (d) { return color(d.key); })
-//         .selectAll("rect")
-//         // enter a second time = loop subgroup per subgroup to add all rectangles
-//         .data(function (d) { return d; })
-//         .enter().append("rect")
-//         .attr("x", function (d) { return x(d.data.group); })
-//         .attr("y", function (d) { return y(d[1]); })
-//         .attr("height", function (d) { return y(d[0]) - y(d[1]); })
-//         .attr("width", x.bandwidth())
-// })
-
-
+children_barchart();

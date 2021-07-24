@@ -73,7 +73,9 @@ body {
   padding-left: 20px;
   float: left;
 }
-
+.service{
+  padding-left: 40px;
+}
 /* Style the footer */
 .footer {
   left: 0;
