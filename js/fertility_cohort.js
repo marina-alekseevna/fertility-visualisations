@@ -1,7 +1,7 @@
 
 import * as utils from "./utils.js";
 
-var data_sets = [
+export var data_sets = [
     {
         "Cumulative Fertility": "./data/cohort_2d.csv",
         "Total Fertility Rate": "./data/cohort_total_2d.csv"
@@ -11,13 +11,13 @@ var data_sets = [
         "Total Fertility Rate": [0, 2]
     },
     {
-        "Cumulative Fertility": "Proportion of women who have had at least one live birth",
+        "Cumulative Fertility": "Share of women who had at least one live birth",
         "Total Fertility Rate": "Average number of live-born children"
     }
 ];
 
 
-function draw_heatmap(years_range, width, height) {
+export function draw_heatmap(years_range, step, width, height) {
 
     var data_set = document.getElementById('select-fertility-data').value;
     console.log(years_range.value());
@@ -29,7 +29,7 @@ function draw_heatmap(years_range, width, height) {
     var svg = d3.select("#fertility-chart")
         .append("svg")
         .attr("width", width + utils.margin.left + utils.margin.right)
-        .attr("height", (to - from) * 20.1 + utils.margin.top + utils.margin.bottom)
+        .attr("height", (to - from) * 18.05 + utils.margin.top + utils.margin.bottom)
         .attr("id", "#fertility-chart")
         .append("g")
         .attr("transform",
@@ -45,28 +45,32 @@ function draw_heatmap(years_range, width, height) {
         })
 
 
-        var data = raw_data.filter(function (d) {
+        let data = raw_data.filter(function (d) {
             return d["year"] >= from && d["year"] <= to;
-        });
 
-        console.log(data);
+
+        });
+        data = data.filter((d) => (d.year % step.value() == 0));
+        console.log("STEP: " + step.value());
+        to = d3.max(data, d => d.year);
+        from = d3.min(data, d => d.year);
+
+        console.log("from: " + from + " to: " + to);
 
         var ages = d3.map(data, function (d) { return d.variable; });
-        var years_of_birth = d3.map(data, function (d) { return d.year; });
+        var years = d3.map(data, function (d) { return d.year; });
         var counts = d3.map(data, function (d) { return d.count; });
+        var num_years = [...new Set(years)].length + 1;
 
-        console.log("counts: " + counts[counts.length - 1] + ", " + counts[0]);
         var x = d3.scaleBand()
-            .range([0, counts[counts.length - 1] * 18])
-            .domain(ages)
-            .padding(0.05);
-
-
+            .range([0, counts[counts.length - 1] * 16])
+            .domain(ages);
+        // .padding(0.05);
 
         console.log("w " + width + " h " + height);
         svg.append("g")
             .style("font-size", 15)
-            .attr("transform", "translate(0," + (to - from) * 18.05 + ")")
+            .attr("transform", "translate(0," + (num_years * 17.05) + ")")
             .call(
                 d3.axisBottom(x)
                     .tickSizeInner(-5)
@@ -76,11 +80,14 @@ function draw_heatmap(years_range, width, height) {
             .attr("opacity", 0)
             .select(".domain").remove()
 
+
+
         // Build Y scales and axis:
+        console.log("LOG LENGTH:" + years.length);
         var y = d3.scaleBand()
-            .range([(to - from) * 18, 0])
-            .domain(years_of_birth)
-            .padding(0.05);
+            .range([0, num_years * 17.05])
+            .domain(years);
+        // .padding(0.05);
 
         svg.append("g")
             .style("font-size", 15)
@@ -105,7 +112,7 @@ function draw_heatmap(years_range, width, height) {
 
         svg.append("g")
             .attr("class", "legendLinear")
-            .attr("transform", "translate(" + (0.68 * width) + ",-40)");
+            .attr("transform", "translate(" + (0.55 * width) + ",-40)");
 
         var legendLinear = d3.legendColor()
             .shapeWidth(30)
@@ -126,8 +133,8 @@ function draw_heatmap(years_range, width, height) {
             .attr("y", function (d) { return y(d.year) })
             .attr("rx", 4)
             .attr("ry", 4)
-            .attr("width", 17)
-            .attr("height", 17)
+            .attr("width", 16)
+            .attr("height", 16)
             .style("fill", function (d) { return colour_scale(d.value) })
             .style("stroke-width", 4)
             .style("stroke", "none")
@@ -170,44 +177,50 @@ function draw_heatmap(years_range, width, height) {
             })
             .style("opacity", 1)
 
-        d3.selectAll(".fertility-axis,.legendLinear")
-            .transition()
-            .duration(4000)
-            .style("opacity", 1);
         // Add title to graph
         svg.append("text")
+            .attr("class", "title")
             .attr("x", 0)
             .attr("y", -50)
             .attr("text-anchor", "left")
             .style("font-size", "22px")
+            .attr("opacity", 0)
             .text(data_set);
 
         // Add subtitle to graph
 
         svg.append("text")
+            .attr("class", "subtitle")
             .attr("x", 0)
             .attr("y", -20)
             .attr("text-anchor", "left")
             .style("font-size", "14px")
             .style("fill", "grey")
             .style("max-width", 400)
-            .text();
-
-
-        svg.append("text")
-            .attr("x", 0)
-            .attr("y", -20)
-            .attr("text-anchor", "left")
-            .style("font-size", "14px")
-            .style("fill", "grey")
-            .style("max-width", 400)
+            .attr("opacity", 0)
             .text(data_sets[2][data_set]);
-    })
 
+
+        d3.selectAll(".fertility-axis,.legendLinear,.subtitle,.title")
+            // d3.selectAll("#fertility-chart > *")
+            .transition()
+            .duration(4000)
+            .style("opacity", 1);
+
+
+        // svg.append("text")
+        //     .attr("transform", "rotate(-90)")
+        //     .attr("y", 0 - utils.margin.left)
+        //     .attr("x", 0 - (utils.margin.top))
+        //     .attr("dy", "1em")
+        //     .style("text-anchor", "middle")
+        //     .text("Year");
+
+    })
 };
 
 
-function fertility_heatmap() {
+export function create_fertility_heatmap(years_range, step) {
     /*
         define chat's starting  parameters according to default values given in utils
     */
@@ -218,9 +231,8 @@ function fertility_heatmap() {
     /*
         add the slider necessary for selection of time ranges
     */
-    let years_range = utils.add_range_slider('p#fertility-value-range', 'div#fertility-slider-range');
 
-    draw_heatmap(years_range, width, height);
+    draw_heatmap(years_range, step, width, height, step);
 
     /*
         define how changes will be made
@@ -236,11 +248,11 @@ function fertility_heatmap() {
                 })
                 .style("opacity", 0)
                 .remove();
-            draw_heatmap(years_range, width, height);
+            draw_heatmap(years_range, step, width, height);
         });
-    years_range
-        .on("end", function () {
-            d3.selectAll("#fertility-chart > * ")
+    d3.select('#select-age')
+        .on('change', function () {
+            d3.selectAll("#fertility-chart > *")
                 .transition()
                 .duration(1000)
                 .delay(function (d, i) {
@@ -249,9 +261,22 @@ function fertility_heatmap() {
                 })
                 .style("opacity", 0)
                 .remove();
-            draw_heatmap(years_range, width, height);
+            draw_heatmap(years_range, step, width, height);
         });
+    // years_range
+    //     .on("end", function () {
+    //         d3.selectAll("#fertility-chart > *")
+    //             .transition()
+    //             .duration(1000)
+    //             .delay(function (d, i) {
+    //                 return i % 5 * 100
+
+    //             })
+    //             .style("opacity", 0)
+    //             .remove();
+    //         draw_heatmap(years_range, width, height);
+    //     });
 
 };
 
-fertility_heatmap();
+// export { create_fertility_heatmap };
