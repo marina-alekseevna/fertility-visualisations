@@ -28,45 +28,9 @@
             superficial study of fertility patterns over the last century, and maybe speculate a little regarding
             possible
             factors that affected it <br> </p>
-
-    </div>
-    <div id="horizontal-separator">рр</div>
-    <div class="row">
-
-        <div class="column-left">
-            <h2>Fertility over Time</h2>
-            <div class="service" id="fertility-service">
-
-                <p id="fertility-value-range"></p>
-                <div id="fertility-slider-range"></div>
-                <select id="select-fertility-data">
-                    <option value="Cumulative Fertility" selected>Cumulative Fertility</option>
-                    <option value="Total Fertility Rate">Total Fertility Rate</option>
-                </select>
-                <div id="legend1"></div>
-            </div>
-            <br>
-
-            <div id="fertility-chart"></div>
-            <div id="trf-chart"></div>
-            <br>
-        </div>
-        <div class="vertical-separator"></div>
-        <div class="column-right">
-            <h2>Range</h2>
-
-            <!-- <div class="numchildren-value-range"> -->
-
-        </div>
-        <div class="service" id="numchildren-service">
-            <p id="numchildren-value-range"></p>
-            <div id="numchildren-slider-range"></div>
-            <div id="selectors">
+        <div id="common-selectors">
+            <div id="left-selectors"><br>Choose Age:<br><br><br>
                 <select id="select-age">
-                    <option value=16>16</option>
-                    <option value=17>17</option>
-                    <option value=18>18</option>
-                    <option value=19>19</option>
                     <option value=20>20</option>
                     <option value=21>21</option>
                     <option value=22>22</option>
@@ -94,10 +58,81 @@
                     <option value=44>44</option>
                     <option value=45>45</option>
                 </select>
-                <input type="button" id="unmerge" value="only 1+">
-                <input type="button" id="graph" value="graph 0">
             </div>
-            <div id="numchildren-chart">Hi</div>
+            <div id="middle-selectors">
+                <p>Choose range of years to view fertility statistics from below:</p>
+                <p id="slider-value-range"></p>
+                <div id="slider-range"></div>
+            </div>
+            <div id="right-selectors">
+                <p>Choose time step between years (show every Nth year) below:</p>
+                <p id="step-value"></p>
+                <div id="step-slider"></div>
+            </div>
+        </div>
+
+        <p id="step-value"></p>
+        <div id="step-slider"></div>
+
+
+    </div>
+
+    <div class="row">
+        <div id="horizontal-separator"></div>
+        <div class="column-left">
+            <p>
+                The heatmap shows Cumulative and
+                <br><br><br><br>
+            </p>
+
+            <h2>Fertility over Time </h2>
+            <h4>and Lifetime</h4>
+            <div class="service" id="fertility-service">
+
+
+                <select id="select-fertility-data">
+                    <option value="Cumulative Fertility" selected>Cumulative Fertility</option>
+                    <option value="Total Fertility Rate">Total Fertility Rate</option>
+                </select>
+                <div id="legend1"></div>
+            </div>
+            <br>
+
+            <div id="fertility-chart"></div>
+            <div id="trf-chart"></div>
+            <br>
+        </div>
+        <div class="vertical-separator"></div>
+        <div class="column-right">
+            <p>
+                Distribution will show you how many women (Y) have N
+                children in year X. <br>Barplot shows relationships between
+                groups better, while a lineplot shows the trend more clearly.<br><br><br><br>
+
+
+            </p>
+
+            <h2>Distribution</h2>
+            <h4>Women <i>rarely</i> have <b>2.2</b> or <b>1.5</b> children. How many children <i>do</i> they have?</h4>
+            <!-- <div class="numchildren-value-range"> -->
+
+
+            <div id="numchildren">
+
+                <div class="service" id="numchildren-service">
+
+                    <div id="selectors">
+
+                        <select id="type">
+                            <option value="plot" selected>Plot</option>
+                            <option value="bar">Stacked Barplot</option>
+                        </select>
+                        <button type="button" id="hide_childless">Hide Childless</button>
+                        <button type="button" id="show_childless">Show Childless</button>
+                    </div>
+                    <div id="numchildren-chart"></div>
+                </div>
+            </div>
         </div>
     </div>
     </div>
@@ -106,6 +141,7 @@
 
     <script type="module" src="./js/fertility_cohort.js"></script>
     <script type="module" src="./js/numchildren.js"></script>
+    <script type="module" src="./js/main.js"></script>
 
 
 </body>
