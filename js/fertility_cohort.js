@@ -13,6 +13,10 @@ export var data_sets = [
     {
         "Cumulative Fertility": "Share of women who had at least one live birth",
         "Total Fertility Rate": "Average number of live-born children"
+    },
+    {
+        "Cumulative Fertility": "*Childbearing for women born in different years, England and Wales - Table 2 - ONS, 2020",
+        "Total Fertility Rate": "*Childbearing for women born in different years, England and Wales - Table 1 - ONS, 2020"
     }
 ];
 
@@ -201,7 +205,18 @@ export function draw_heatmap(years_range, step, width, height) {
             .text(data_sets[2][data_set]);
 
 
-        d3.selectAll(".fertility-axis,.legendLinear,.subtitle,.title")
+        svg.append("text")
+            .attr("class", "citation")
+            .attr("x", 60)
+            .attr("y", (num_years * 17.05 + 20))
+            .attr("text-anchor", "left")
+            .style("font-size", "10px")
+            .style("fill", "grey")
+            .style("max-width", 400)
+            .text(data_sets[3][data_set]);
+
+
+        d3.selectAll(".fertility-axis,.legendLinear,.subtitle,.title,.citation")
             // d3.selectAll("#fertility-chart > *")
             .transition()
             .duration(4000)

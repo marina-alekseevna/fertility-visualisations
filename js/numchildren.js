@@ -134,6 +134,15 @@ export function draw_lineplot(svg, step, age, from, to, colours, tooltip, width)
             .transition()
             .duration(4000)
             .attr("cy", d => y(d.value));
+        svg.append("text")
+            .attr("class", "citation")
+            .attr("x", 110)
+            .attr("y", (230))
+            .attr("text-anchor", "left")
+            .style("font-size", "10px")
+            .style("fill", "grey")
+            .style("max-width", 400)
+            .text("*Childbearing for women born in different years, England and Wales - Table 3 - ONS, 2020");
 
     })
 }
