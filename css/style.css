@@ -80,11 +80,11 @@ select:hover, button:hover{
   padding-right: 7%;
   float:right;
 }
-/* #common-selectors{
-  float:left;
-} */
+#common-selectors{
+ height: 100px;
+}
 #left-selectors{
-  width:17%;
+  width:10%;
   padding-left: 7%;
   float:left;
 }
@@ -95,11 +95,16 @@ select:hover, button:hover{
   float:left;
 }
 #right-selectors{
-  width:25%;
+  width:30%;
   padding-right: 7%;
   float:right;
 }
 
+.clarification{
+  padding-right: 20px;
+  padding-left: 20px;
+  height:100px;
+}
 /* h2{
   float: left;
   width: 50px !important;

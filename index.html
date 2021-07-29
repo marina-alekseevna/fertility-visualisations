@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Cohort Fertility and Siblings</title>
+    <title>Childbearing for
+        women born in different years, England and Wales</title>
     <link rel="stylesheet" href="./css/style.css">
     <script src=" https://d3js.org/d3.v6.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"
@@ -17,17 +18,23 @@
 
 <body>
     <div class="header">
-        <h1>Cohort Fertility and Siblings</h1>
+        <h1>Childbearing for women born in different years, England and Wales</h1>
     </div>
     <div id="horizontal-separator"></div>
     <div class="middle" id="middle">
-        <h2>Fertility Patterns in the UK Over Time</h2>
-        <p>Starting a family is a major decision in life, and when people choose to start a family, as well as how
-            they
-            space their children and how many they choose to have, is affected by numerous factors. Let's conduct a
-            superficial study of fertility patterns over the last century, and maybe speculate a little regarding
-            possible
-            factors that affected it <br> </p>
+        <h2>Fertility Patterns in England and Wales Over Time</h2>
+        <p>Childbirth is a major event in life, and various factors can influence if and when it takes place. Over the
+            last century many economic and cultural changes occured, and the patterns of fertility followed suit.
+            <br><br>Let's take a look at some of the patterns using data from <i>Ons.gov.uk. 2020. Childbearing for
+                women
+                born in different years, England and Wales - Office for National Statistics. </i><a
+                href="https:
+            //www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/conceptionandfertilityrates/bulletins/childbearingforwomenbornindifferentyearsenglandandwales/2019">[online]</a>, which
+            gives us an insight into reproductive choices made by women born between 1920 and 2000. For clarity, it was
+            decided to list years as the sum of women's age and date of birth, so that readers can more readily follow
+            the statistics and timeline, based on their knowledge of history.
+            <br>
+        </p>
         <div id="common-selectors">
             <div id="left-selectors"><br>Choose Age:<br><br><br>
                 <select id="select-age">
@@ -80,9 +87,13 @@
     <div class="row">
         <div id="horizontal-separator"></div>
         <div class="column-left">
-            <p>
-                The heatmap shows Cumulative and
-                <br><br><br><br>
+            <p class="clarification">
+                The heatmap shows either <i>Cumulative</i> or <i>Total Fertility Rate</i>.
+                Cumulative Fertility Rate is the share of women who have had any children,
+                while Total Fertility Rate is ratio of children to women between ages of 16 and 45.<br>
+                Years <b>(Y axis)</b> show the year of the statistic, which equals to the year of birth of a
+                cohort
+                of women plus their age <b>(X axis)</b>.
             </p>
 
             <h2>Fertility over Time </h2>
@@ -104,12 +115,10 @@
         </div>
         <div class="vertical-separator"></div>
         <div class="column-right">
-            <p>
-                Distribution will show you how many women (Y) have N
-                children in year X. <br>Barplot shows relationships between
-                groups better, while a lineplot shows the trend more clearly.<br><br><br><br>
-
-
+            <p class="clarification">
+                Plots in the distribution section will show what share of women <b>(Y axis)</b> have N
+                children in year <b>(X axis)</b>. <br><br>Barplot shows relationships between
+                groups better, while a lineplot shows the trend more clearly.<br>
             </p>
 
             <h2>Distribution</h2>

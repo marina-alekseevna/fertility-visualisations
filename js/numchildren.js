@@ -12,10 +12,8 @@ export function draw_lineplot(svg, step, age, from, to, colours, tooltip, width)
     d3.csv("./data/numchildren_2d.csv").then(function (raw_data) {
         // console.log(raw_data);
         raw_data.forEach(function (d) {
-            d.mothersdob = (+d.mothersdob);
             d.age = +d.age;
-            d.percentage = +d.percentage;
-            d.filtered_percentage = +d.filtered_percentage;
+            d.value = +d.value;
             d.year = (+d.year);
         })
         console.log(raw_data);
@@ -92,7 +90,7 @@ export function draw_lineplot(svg, step, age, from, to, colours, tooltip, width)
             .selectAll("dot")
             .data(data, function (d) {
                 // console.log(d.year + ':' + d.value);
-                return d.year + ':' + d.percentage;
+                return d.year + ':' + d.value;
             })
             .join("circle")
             .attr("class", "number_of_children")
@@ -111,7 +109,7 @@ export function draw_lineplot(svg, step, age, from, to, colours, tooltip, width)
                     .duration(200)
                     .style('opacity', .99);
 
-                tooltip.html(d.variable + "<br>" + d.year + ": " + (d.percentage * 100).toFixed(0) + "%")
+                tooltip.html(d.variable + "<br>" + d.year + ": " + (d.value * 100).toFixed(0) + "%")
                     .style('left', (event.pageX) + 'px')
                     .style('top', ((event.pageY) - 28) + 'px');
                 d3.selectAll(this)
@@ -135,7 +133,7 @@ export function draw_lineplot(svg, step, age, from, to, colours, tooltip, width)
             .attr("cy", d => y(0))
             .transition()
             .duration(4000)
-            .attr("cy", d => y(d.percentage));
+            .attr("cy", d => y(d.value));
 
     })
 }
@@ -236,12 +234,32 @@ export function draw_barchart(svg, step, age, from, to, colours, tooltip, width,
 
                 // Highlight all rects of this subgroup with opacity 1. It is possible to select them since they have a specific class = their name.
                 d3.selectAll("." + subGroupName).style("opacity", 1)
+
+                tooltip.transition()
+                    .duration(200)
+                    .style('opacity', .99);
+
+                tooltip.html(d.data.year + ", age: " + d.data.age + `<br>zero: ${(d.data.zero * 100).toFixed(0)}%<br>one: ${(d.data.one * 100).toFixed(0)}%<br>two: ${(d.data.two * 100).toFixed(0)}%<br>three: ${(d.data.three * 100).toFixed(0)}%<br>four+: ${(d.data.four * 100).toFixed(0)}%`)
+                    .style("height", "90px")
+                    .style('left', (event.pageX) + 'px')
+                    .style('top', ((event.pageY) - 28) + 'px');
+
+                d3.selectAll(this)
+                    .style("stroke", "black")
+                    .style("stroke-width", "1px");
             })
             .on("mouseleave", function (event, d) { // When user do not hover anymore
 
                 // Back to normal opacity: 1
                 d3.selectAll(".myRect")
                     .style("opacity", 1)
+
+                d3.select(this)
+                    .style("stroke", "transparent")
+                    .style("stroke-width", "0px");
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", 0);
             })
 
             .transition()
