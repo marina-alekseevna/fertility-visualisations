@@ -116,7 +116,7 @@ export function draw_heatmap(years_range, step, width, height) {
 
         svg.append("g")
             .attr("class", "legendLinear")
-            .attr("transform", "translate(" + (num_years * 32) + ",-40)");
+            .attr("transform", "translate(" + (320) + ",-40)");
 
         var legendLinear = d3.legendColor()
             .shapeWidth(30)
